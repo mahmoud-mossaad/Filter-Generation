@@ -40,30 +40,17 @@ if nargin == 3
     jpg_filename = varargin{3};
 end
 switch action
- 
     case 'init'
         z_surface_CameraPos=[3.7719  -15.7111  275.3541];
         z_surface_CameraUpVec=[-0.1237    0.5153   23.1286];
         surface_display_opts = 0;
         set(0,'defaultaxesfontsize',10)
- 
-        subplot(2,2,1)
- 
+  
         [zh,ph,cruff]=zplaneplot(z,p);
-        %set(cruff,'hittest','off')
         ax1 = gca;
         ylabel('Imaginary Part')
         xlabel('Real Part')
- 
-
-        %uicontrol('style','pushbutton',...
-        %    'units','normalized',...
-        %    'fontsize',8,...
-        %    'position',[.5 .96 .18 .04],'string','Toggle surface display',...
-        %    'callback','zpgui(''toggle_surface_display'')');
- 
-         
-        %set(Lresp,'erasemode','xor')
+        
  
         set(zh,'buttondownfcn','zpgui(''zeroclick'')',...
             'markersize',8,'linewidth',1)
@@ -72,7 +59,6 @@ switch action
         
  
     case 'zeroclick'
- 
         set(gcf,'userdata','')
         set(gcf,'windowbuttonmotionfcn','set(gcf,''userdata'',''motion'')')
         set(gcf,'windowbuttonupfcn','set(gcf,''userdata'',''up'')')
@@ -83,22 +69,23 @@ switch action
         pair = length(get(zh(ind),'xdata'))==2;
         done = 0;
  
-        %pt = get(ax1,'currentpoint');
-        %pt = pt(1,1:2);
-        %title(['selected position: ' num2str(pt) 'j'])
+        pt = get(ax1,'currentpoint');
+        pt = pt(1,1:2);
+        title(['selected position: ' num2str(pt) 'j'])
         while ~done
             waitfor(gcf,'userdata')
             switch get(gcf,'userdata')
                 case 'motion'
                     pt = get(ax1,'currentpoint');
-                    pt = pt(1,1:2)
-                    title(['Target position: ' num2str(pt) 'j'])
+                    pt = pt(1,1:2);
+                    %title(['selected position: ' num2str(pt) 'j'])
                     %if pair
                     if 1
                         set(zh(ind),'xdata',[pt(1) pt(1)],'ydata',[pt(2) -pt(2)])
                     else
                         set(zh(ind),'xdata',pt(1),'ydata',pt(2))
                     end
+                   
  
                     zpgui('recompute')
                 case 'up'
@@ -110,15 +97,14 @@ switch action
         set(gcf,'windowbuttonupfcn','')
         %set(zh(ind),'erasemode','normal')
         %set(Lresp,'erasemode','normal')
-        set(ax2,'ylimmode','auto')
-        ylim = get(ax2,'ylim');
-        Y = get(Lresp,'ydata');
-        if ylim(1)>min(Y)-3 | ylim(2)<max(Y)+3
-            set(ax2,'ylim',[min(Y)-3 max(Y)+3])
-        end
+        %set(ax2,'ylimmode','auto')
+        %ylim = get(ax2,'ylim');
+        %Y = get(Lresp,'ydata');
+        %if ylim(1)>min(Y)-3 | ylim(2)<max(Y)+3
+         %   set(ax2,'ylim',[min(Y)-3 max(Y)+3])
+        %end
  
     case 'poleclick'
- 
         set(gcf,'userdata','')
         set(gcf,'windowbuttonmotionfcn','set(gcf,''userdata'',''motion'')')
         set(gcf,'windowbuttonupfcn','set(gcf,''userdata'',''up'')')
@@ -129,16 +115,16 @@ switch action
         pair = length(get(ph(ind),'xdata'))==2;
         done = 0;
  
-        %pt = get(ax1,'currentpoint');
-        %pt = pt(1,1:2);
-        %title(['selected position: ' num2str(pt) 'j'])
+        pt = get(ax1,'currentpoint');
+        pt = pt(1,1:2);
+        title(['selected position: ' num2str(pt) 'j'])
         while ~done
             waitfor(gcf,'userdata')
             switch get(gcf,'userdata')
                 case 'motion'
                     pt = get(ax1,'currentpoint');
-                    pt = pt(1,1:2)
-                    title(['Target position: ' num2str(pt) 'j'])
+                    pt = pt(1,1:2);
+                    title(['selected position: ' num2str(pt) 'j'])
                     if 1
                         set(ph(ind),'xdata',[pt(1) pt(1)],'ydata',[pt(2) -pt(2)])
                     else
@@ -151,6 +137,39 @@ switch action
             end
             set(gcf,'userdata','')
         end
-
-    
+        
+    case 'addzero'
+        if length(zh)>0
+            zh(end+1) =  line(.5,0,'parent',ax1,'buttondownfcn','zpgui(''zeroclick'')',...
+                'markersize',8,'linewidth',1,'marker','o','linestyle','none');
+        else
+            zh = line(.5,0,'parent',ax1,'buttondownfcn','zpgui(''zeroclick'')',...
+                'markersize',8,'linewidth',1,'marker','o','linestyle','none');
+            set(findobj('string','Remove Zeros'),'enable','on')
+        end
+        zpgui('recompute')
+    case 'removezero'
+        delete(zh(end))
+        zh(end)=[];
+        if length(zh)==0
+            set(gco,'enable','off')
+        end
+        zpgui('recompute')
+    case 'addpole'
+        if length(ph)>0
+            ph(end+1) =  line(.5,0,'parent',ax1,'buttondownfcn','zpgui(''poleclick'')',...
+                'markersize',8,'linewidth',1,'marker','x','linestyle','none');
+        else
+            ph =  line(.5,0,'parent',ax1,'buttondownfcn','zpgui(''poleclick'')',...
+                'markersize',8,'linewidth',1,'marker','x','linestyle','none');
+            set(findobj('string','Remove Poles'),'enable','on')
+        end
+        zpgui('recompute')
+    case 'removepole'
+        delete(ph(end))
+        ph(end)=[];
+        if length(ph)==0
+            set(gco,'enable','off')
+        end
+        zpgui('recompute')
 end
