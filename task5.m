@@ -319,4 +319,8 @@ if length(ph)>0
                 'markersize',8,'linewidth',1,'marker','x','linestyle','none');
             set(findobj('string','Remove Poles'),'enable','on')
         end
+<<<<<<< HEAD
         recompute(1);
+=======
+        recompute(1);
+>>>>>>> c862e1352cbf70ff097fb45ae4890bd19c2e7db4
