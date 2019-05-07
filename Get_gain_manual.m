@@ -4,22 +4,21 @@ function [ gain ] = Get_gain_manual( zeros, poles, unit_circle_vector )
 %poles = [ 1;2;i;2+2i];
 den=1;
 num = 1;
+Distance = ones(length(unit_circle_vector),1);
 
-for i = 1:size(zeros)
-    Distance(i) = norm (unit_circle_vector - zeros(i));
-    num = Distance(i)* num;
-    
+for i = 1:size(unit_circle_vector)
+    for j=1:size(zeros)
+    Distance(i) = Distance(i)* norm (unit_circle_vector(i) - zeros(j));
+    end
 end 
 display(num)
 
-for k = 1:size(poles)
-    Distance(k) = norm (unit_circle_vector - poles(k));
-    den = Distance(k)* den;
-    
+for i = 1:size(unit_circle_vector)
+    for j=1:size(poles)
+    Distance(i) = Distance(i)* 1/norm (unit_circle_vector(i) - poles(j));
+    end
 end 
-display(den)
-
-gain = num/den
+plot(20*log(Distance));
 
 
 end
