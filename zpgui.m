@@ -40,24 +40,7 @@ if nargin == 3
     jpg_filename = varargin{3};
 end
 switch action
-    case 'init'
-        z_surface_CameraPos=[3.7719  -15.7111  275.3541];
-        z_surface_CameraUpVec=[-0.1237    0.5153   23.1286];
-        surface_display_opts = 0;
-        set(0,'defaultaxesfontsize',10)
-  
-        [zh,ph,cruff]=zplaneplot(z,p);
-        ax1 = gca;
-        ylabel('Imaginary Part')
-        xlabel('Real Part')
-        
- 
-        set(zh,'buttondownfcn','zpgui(''zeroclick'')',...
-            'markersize',8,'linewidth',1)
-        set(ph,'buttondownfcn','zpgui(''poleclick'')',...
-            'markersize',8,'linewidth',1)
-        
- 
+
     case 'zeroclick'
         set(gcf,'userdata','')
         set(gcf,'windowbuttonmotionfcn','set(gcf,''userdata'',''motion'')')
@@ -172,4 +155,7 @@ switch action
             set(gco,'enable','off')
         end
         zpgui('recompute')
+    case 'takepath'
+        [FileName,FilePath ]= uigetfile();
+        ExPath = fullfile(FilePath, FileName)
 end
