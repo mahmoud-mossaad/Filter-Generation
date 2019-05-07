@@ -217,7 +217,7 @@ function zeroClick(object, eventdata)
         end
        % set(ph(ind),'erasemode','xor')
         %set(Lresp,'erasemode','xor')
-        pair = software
+        pair = software;
         done = 0;
  
         pt = get(ax1,'currentpoint');
