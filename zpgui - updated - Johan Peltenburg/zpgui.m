@@ -213,7 +213,6 @@ switch action
         set(gcf,'userdata','')
         set(gcf,'windowbuttonmotionfcn','set(gcf,''userdata'',''motion'')')
         set(gcf,'windowbuttonupfcn','set(gcf,''userdata'',''up'')')
- 
         ind = find(zh==gco);
         %set(zh(ind),'erasemode','xor')
       %  set(Lresp,'erasemode','xor')

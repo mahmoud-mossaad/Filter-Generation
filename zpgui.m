@@ -27,6 +27,9 @@ if nargin == 3
     jpg_filename = varargin{3};
 end
 switch action
+<<<<<<< HEAD
+
+=======
  
     case 'init'
         z_surface_CameraPos=[3.7719  -15.7111  275.3541];
@@ -178,6 +181,7 @@ switch action
         end
         zpgui('recompute')
  
+>>>>>>> c862e1352cbf70ff097fb45ae4890bd19c2e7db4
     case 'zeroclick'
  
         set(gcf,'userdata','')
@@ -296,6 +300,12 @@ switch action
             end
             p = [p px+sqrt(-1)*py];
         end
+<<<<<<< HEAD
+        zpgui('recompute')
+    case 'takepath'
+        [FileName,FilePath ]= uigetfile();
+        ExPath = fullfile(FilePath, FileName)
+=======
  
         Y = fft(b,Nfft)./fft(a,Nfft);
         %Y = Y/max(abs(Y));
@@ -306,4 +316,5 @@ switch action
         z_surface_CameraUpVec = get(ax3, 'CameraUpVector');
         plot_z_surface(p,z, z_surface_CameraPos, z_surface_CameraUpVec, surface_display_opts);
  
+>>>>>>> c862e1352cbf70ff097fb45ae4890bd19c2e7db4
 end
