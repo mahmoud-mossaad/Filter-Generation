@@ -22,7 +22,7 @@ function varargout = task5(varargin)
 
 % Edit the above text to modify the response to help task5
 
-% Last Modified by GUIDE v2.5 07-May-2019 22:49:58
+% Last Modified by GUIDE v2.5 07-May-2019 23:29:43
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -321,8 +321,30 @@ if length(ph)>0
                 'markersize',8,'linewidth',1,'marker','x','linestyle','none');
             set(findobj('string','Remove Poles'),'enable','on')
         end
-<<<<<<< HEAD
+
         recompute(1);
-=======
-        recompute(1);
->>>>>>> c862e1352cbf70ff097fb45ae4890bd19c2e7db4
+
+
+% --- Executes on button press in browse.
+function browse_Callback(hObject, eventdata, handles)
+% hObject    handle to browse (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in offline.
+function offline_Callback(hObject, eventdata, handles)
+% hObject    handle to offline (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of offline
+
+
+% --- Executes on button press in online.
+function online_Callback(hObject, eventdata, handles)
+% hObject    handle to online (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of online
