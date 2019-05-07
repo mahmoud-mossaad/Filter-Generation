@@ -136,6 +136,8 @@ function cb_conjugate_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of cb_conjugate
+global software
+software = get(handles.cb_conjugate,'value');
 
 
 % --- Executes on mouse press over axes background.
@@ -152,7 +154,7 @@ disp('done')
 
 
 function zeroClick(object, eventdata)
-        global zh ax1 ax2 Lresp
+        global zh ax1 ax2 Lresp software
         set(gcf,'userdata','')
         set(gcf,'windowbuttonmotionfcn','set(gcf,''userdata'',''motion'')')
         set(gcf,'windowbuttonupfcn','set(gcf,''userdata'',''up'')')
@@ -160,7 +162,7 @@ function zeroClick(object, eventdata)
         ind = find(zh==gco);
         %set(zh(ind),'erasemode','xor')
       %  set(Lresp,'erasemode','xor')
-        pair = length(get(zh(ind),'xdata'))==2;
+        pair = software;
         done = 0;
         if eventdata.Button == 3
            delete(zh(ind));
@@ -178,7 +180,7 @@ function zeroClick(object, eventdata)
                     pt = get(ax1,'currentpoint');
                     pt = pt(1,1:2);
                     title(['selected position: ' num2str(pt) 'j'])
-                    if 1
+                    if pair
                         set(zh(ind),'xdata',[pt(1) pt(1)],'ydata',[pt(2) -pt(2)])
                     else
                         set(zh(ind),'xdata',pt(1),'ydata',pt(2))
@@ -200,7 +202,7 @@ function zeroClick(object, eventdata)
         end
         
     function poleClick(object,eventdata)
-        global zh ph Lresp Nfft b a z h Y
+        global zh ph Lresp Nfft b a z h Y software
         global ax1 ax2 ax3 ax4 z_surface_CameraPos z_surface_CameraUpVec surface_display_opts
         set(gcf,'userdata','')
         set(gcf,'windowbuttonmotionfcn','set(gcf,''userdata'',''motion'')')
@@ -215,7 +217,7 @@ function zeroClick(object, eventdata)
         end
        % set(ph(ind),'erasemode','xor')
         %set(Lresp,'erasemode','xor')
-        pair = length(get(ph(ind),'xdata'))==2;
+        pair = software
         done = 0;
  
         pt = get(ax1,'currentpoint');
@@ -228,7 +230,7 @@ function zeroClick(object, eventdata)
                     pt = get(ax1,'currentpoint');
                     pt = pt(1,1:2);
                     title(['selected position: ' num2str(pt) 'j'])
-                    if 1
+                    if pair
                         set(ph(ind),'xdata',[pt(1) pt(1)],'ydata',[pt(2) -pt(2)])
                     else
                         set(ph(ind),'xdata',pt(1),'ydata',pt(2))
